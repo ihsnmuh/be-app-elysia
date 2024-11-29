@@ -1,0 +1,5 @@
+### GET Todos
+GET http://localhost:3001/todos
+
+### GET Todos by ID
+GET http://localhost:3001/todos/1
