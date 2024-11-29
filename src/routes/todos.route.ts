@@ -16,4 +16,11 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
     return {
       message: `Get todo by ID ${id}`,
     };
+  })
+
+  .post("/", ({ body }) => {
+    return {
+      message: "You are create Todo",
+      body,
+    };
   });

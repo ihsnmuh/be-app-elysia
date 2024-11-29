@@ -3,3 +3,12 @@ GET http://localhost:3001/todos
 
 ### GET Todos by ID
 GET http://localhost:3001/todos/1
+
+### POST Todos by ID
+POST http://localhost:3001/todos
+Content-Type: application/json
+
+{
+    "todo": "test 1 todos",
+    "time": "2024-11-1"
+}
