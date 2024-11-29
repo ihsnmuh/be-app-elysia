@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 
 //* Chaining method Todos
 export const todosRoutes = new Elysia({ prefix: "/todos" })
@@ -18,9 +18,19 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
     };
   })
 
-  .post("/", ({ body }) => {
-    return {
-      message: "You are create Todo",
-      body,
-    };
-  });
+  .post(
+    "/",
+    ({ body }) => {
+      return {
+        message: "You are create Todo",
+        body,
+      };
+    },
+    {
+      // This is Schema Guard
+      body: t.Object({
+        todo: t.String(),
+        userId: t.Number(),
+      }),
+    }
+  );
