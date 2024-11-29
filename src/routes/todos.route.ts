@@ -4,7 +4,15 @@ import { Elysia, t } from "elysia";
 export const todosRoutes = new Elysia({ prefix: "/todos" })
 
   // Get All todos
-  .get("/", () => {
+  .get("/", ({ cookie: { token } }) => {
+    
+    // example to set cookie like token
+    token.set({
+      value: "ini contoh token",
+      expires: new Date(new Date().getDate() + 1),
+      httpOnly: true
+    });
+
     return {
       message: "Get All Todos",
     };
@@ -20,7 +28,9 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
 
   .post(
     "/",
-    ({ body }) => {
+    ({ body, headers }) => {
+      console.log(headers, "<< get all headers");
+
       return {
         message: "You are create Todo",
         body,
