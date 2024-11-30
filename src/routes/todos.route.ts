@@ -4,7 +4,9 @@ import { Elysia, t } from "elysia";
 export const todosRoutes = new Elysia({ prefix: "/todos" })
 
   // Get All todos
-  .get("/", ({ cookie: { token } }) => {
+  .get("/", ({ cookie: { token }, query }) => {
+
+    console.log(query, "<< read query");
     
     // example to set cookie like token
     token.set({
