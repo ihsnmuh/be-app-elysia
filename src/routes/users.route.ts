@@ -5,6 +5,7 @@ export const usersRoutes = new Elysia({ prefix: "/users" })
 
   // Get All user
   .get("/", () => {
+    console.log("get all users");
     return {
       message: "Get All Users",
     };

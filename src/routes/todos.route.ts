@@ -3,16 +3,20 @@ import { Elysia, t } from "elysia";
 //* Chaining method Todos
 export const todosRoutes = new Elysia({ prefix: "/todos" })
 
+  // Local hooks on todos route
+  .onBeforeHandle(() => {
+    console.log("Local Hooks on todos");
+  })
+
   // Get All todos
   .get("/", ({ cookie: { token }, query }) => {
-
     console.log(query, "<< read query");
-    
+
     // example to set cookie like token
     token.set({
       value: "ini contoh token",
       expires: new Date(new Date().getDate() + 1),
-      httpOnly: true
+      httpOnly: true,
     });
 
     return {
@@ -34,7 +38,7 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
       console.log(headers, "<< get all headers");
 
       // set status
-      set.status = 200
+      set.status = 200;
 
       return {
         message: "You are create Todo",
