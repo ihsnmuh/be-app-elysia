@@ -30,8 +30,11 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
 
   .post(
     "/",
-    ({ body, headers }) => {
+    ({ body, headers, set }) => {
       console.log(headers, "<< get all headers");
+
+      // set status
+      set.status = 200
 
       return {
         message: "You are create Todo",
