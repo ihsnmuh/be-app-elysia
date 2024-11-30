@@ -10,23 +10,20 @@ const app = new Elysia()
     // example use for validation / checking headers, token, etc
     console.log("Global before hooks");
 
-    if (authorization !== "MyToken") {
-      set.status = 401;
-      return {
-        message: "You dont have access",
-      };
-    }
+    // if (authorization !== "MyToken") {
+    //   set.status = 401;
+    //   return {
+    //     message: "You dont have access",
+    //   };
+    // }
 
-    return {
-      message: "stop at hook before handle",
-    };
+    // return {
+    //   message: "stop at hook before handle",
+    // };
   })
 
   .onAfterHandle(() => {
     console.log("Global After handle hooks");
-    return {
-      message: "After handle",
-    };
   })
 
   //* Routes Todos

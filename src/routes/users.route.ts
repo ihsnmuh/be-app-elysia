@@ -9,6 +9,11 @@ export const usersRoutes = new Elysia({ prefix: "/users" })
     return {
       message: "Get All Users",
     };
+  }, {
+    // local hook on route /user
+    beforeHandle() {
+      console.log("Local hooks only on /user");
+    }
   })
   // Get user by Id
   .get("/:id", ({ params }) => {

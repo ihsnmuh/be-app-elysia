@@ -3,7 +3,7 @@ import { Elysia, t } from "elysia";
 //* Chaining method Todos
 export const todosRoutes = new Elysia({ prefix: "/todos" })
 
-  // Local hooks on todos route
+  // Global hooks on todos route
   .onBeforeHandle(() => {
     console.log("Local Hooks on todos");
   })
@@ -51,5 +51,5 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
         todo: t.String(),
         userId: t.Number(),
       }),
-    }
+    },
   );
