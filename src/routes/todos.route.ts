@@ -1,7 +1,14 @@
 import { Elysia, t } from "elysia";
+import { loggerProd } from "../utils/loggerProd";
+import { loggerDev } from "../utils/loggerDev";
 
 //* Chaining method Todos
 export const todosRoutes = new Elysia({ prefix: "/todos" })
+
+  // define custom methods, and all handler can use it
+  // example for func logger you can pass as logger depend the env
+  // configuration over hooks
+  .decorate("logger", process.env.NODE_ENV === "prod" ? loggerProd : loggerDev)
 
   // Using for passing data to other chain
   // for example each root need user data and derive can send the data
@@ -28,7 +35,7 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
   })
 
   // Get All todos
-  .get("/", ({ cookie: { token }, query, username }) => {
+  .get("/", ({ cookie: { token }, query, username, logger }) => {
     console.log(query, "<< read query");
 
     // example to set cookie like token
@@ -37,6 +44,8 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
       expires: new Date(new Date().getDate() + 1),
       httpOnly: true,
     });
+
+    logger.info("Log info")
 
     return {
       message: "Get All Todos",
