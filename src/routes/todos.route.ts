@@ -35,31 +35,71 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
   })
 
   // Get All todos
-  .get("/", ({ cookie: { token }, query, username, logger }) => {
-    console.log(query, "<< read query");
+  .get(
+    "/",
+    ({ cookie: { token }, query, username, logger }) => {
+      console.log(query, "<< read query");
 
-    // example to set cookie like token
-    token.set({
-      value: "ini contoh token",
-      expires: new Date(new Date().getDate() + 1),
-      httpOnly: true,
-    });
+      // example to set cookie like token
+      token.set({
+        value: "ini contoh token",
+        expires: new Date(new Date().getDate() + 1),
+        httpOnly: true,
+      });
 
-    logger.info("Log info")
+      logger.info("Log info");
 
-    return {
-      message: "Get All Todos",
-      username,
-    };
-  })
+      return {
+        message: "Get All Todos",
+        username,
+      };
+    },
+    {
+      detail: {
+        description: "For get all data todos",
+        // Set Tag For swagger doc
+        tags: ["todos"],
+        // set schema response for swagger doc
+        responses: {
+          200: {
+            description: "Get all data todos",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: { type: "string" },
+                      todo: { type: "string" },
+                      userNameId: { type: "number" },
+                      createdAt: { type: "string" },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    }
+  )
   // Get Todo by Id
-  .get("/:id", ({ params }) => {
-    const id = params.id;
+  .get(
+    "/:id",
+    ({ params }) => {
+      const id = params.id;
 
-    return {
-      message: `Get todo by ID ${id}`,
-    };
-  })
+      return {
+        message: `Get todo by ID ${id}`,
+      };
+    },
+    {
+      detail: {
+        tags: ["todos"],
+      },
+    }
+  )
 
   .post(
     "/",
@@ -75,6 +115,9 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
       };
     },
     {
+      detail: {
+        tags: ["todos"],
+      },
       // This is Schema Guard
       body: t.Object({
         todo: t.String(),

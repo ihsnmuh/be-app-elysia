@@ -1,10 +1,11 @@
 import { Elysia } from "elysia";
 import { todosRoutes } from "./routes/todos.route";
 import { usersRoutes } from "./routes/users.route";
+import swagger from "@elysiajs/swagger";
 
-//* Chaining method
+//* Chaining method only
 const app = new Elysia()
-  
+
   // This is example for implement global Hooks
   .onBeforeHandle(({ headers, set }) => {
     // example use for validation / checking headers, token, etc
@@ -25,6 +26,21 @@ const app = new Elysia()
   .onAfterHandle(() => {
     console.log("Global After handle hooks");
   })
+
+  // swagger plugin handler
+  .use(
+    swagger({
+      path: "/docs",
+      // set config for setup swagger
+      // more info on https://github.com/scalar/scalar/blob/main/documentation/configuration.md
+      scalarConfig: {
+        defaultHttpClient: {
+          targetKey: 'javascript',
+          clientKey: 'fetch',
+        },
+      },
+    })
+  )
 
   //* Routes Todos
   .use(todosRoutes)
