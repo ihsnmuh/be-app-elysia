@@ -1,0 +1,25 @@
+### GET notes
+GET http://localhost:3001/notes?sort=asc&min=1&max=2
+authorization: Mytoken1
+
+### GET notes by ID
+GET http://localhost:3001/notes/2
+authorization: Mytoken1
+
+### POST notes
+POST http://localhost:3001/notes
+Content-Type: application/json
+authorization: Mytoken1
+
+{ "note": "test 1 notes baru" }
+
+### PATCH notes
+PATCH http://localhost:3001/notes/2
+Content-Type: application/json
+authorization: Mytoken1
+
+{ "note": "update data notes" }
+
+### Delete notes
+DELETE http://localhost:3001/notes/4
+authorization: Mytoken1

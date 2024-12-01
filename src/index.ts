@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 import { todosRoutes } from "./routes/todos.route";
 import { usersRoutes } from "./routes/users.route";
 import swagger from "@elysiajs/swagger";
+import { notesRoutes } from "./routes/notes.route";
 
 //* Chaining method only
 const app = new Elysia()
@@ -9,7 +10,7 @@ const app = new Elysia()
   // This is example for implement global Hooks
   .onBeforeHandle(({ headers, set }) => {
     // example use for validation / checking headers, token, etc
-    console.log("Global before hooks");
+    // console.log("Global before hooks");
 
     // if (authorization !== "MyToken") {
     //   set.status = 401;
@@ -24,7 +25,7 @@ const app = new Elysia()
   })
 
   .onAfterHandle(() => {
-    console.log("Global After handle hooks");
+    // console.log("Global After handle hooks");
   })
 
   // swagger plugin handler
@@ -45,6 +46,7 @@ const app = new Elysia()
   //* Routes Todos
   .use(todosRoutes)
   .use(usersRoutes)
+  .use(notesRoutes)
 
   //* This is Runner
   .listen(process.env.PORT as string);
