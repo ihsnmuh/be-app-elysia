@@ -3,13 +3,32 @@ import { Elysia, t } from "elysia";
 //* Chaining method Todos
 export const todosRoutes = new Elysia({ prefix: "/todos" })
 
+  // Using for passing data to other chain
+  // for example each root need user data and derive can send the data
+  // derive => hooks => handler
+  .derive(({ headers }) => {
+    console.log("derive", "<<");
+    const { authorization } = headers;
+    if (authorization === "Mytoken1") {
+      return {
+        username: "Abdul",
+      };
+    }
+
+    if (authorization === "Mytoken2") {
+      return {
+        username: "Bambang",
+      };
+    }
+  })
+
   // Global hooks on todos route
   .onBeforeHandle(() => {
     console.log("Local Hooks on todos");
   })
 
   // Get All todos
-  .get("/", ({ cookie: { token }, query }) => {
+  .get("/", ({ cookie: { token }, query, username }) => {
     console.log(query, "<< read query");
 
     // example to set cookie like token
@@ -21,6 +40,7 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
 
     return {
       message: "Get All Todos",
+      username,
     };
   })
   // Get Todo by Id
@@ -51,5 +71,5 @@ export const todosRoutes = new Elysia({ prefix: "/todos" })
         todo: t.String(),
         userId: t.Number(),
       }),
-    },
+    }
   );

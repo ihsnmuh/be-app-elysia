@@ -1,5 +1,6 @@
 ### GET Todos
 GET http://localhost:3001/todos?sort=asc&min=1&max=2
+authorization: Mytoken1
 
 ### GET Todos by ID
 GET http://localhost:3001/todos/1
@@ -7,7 +8,7 @@ GET http://localhost:3001/todos/1
 ### POST Todos
 POST http://localhost:3001/todos
 Content-Type: application/json
-Authorization: bearer Token
+Authorization: MyToken1
 
 {
     "todo": "test 1 todos",

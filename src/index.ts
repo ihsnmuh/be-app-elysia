@@ -4,9 +4,9 @@ import { usersRoutes } from "./routes/users.route";
 
 //* Chaining method
 const app = new Elysia()
+  
   // This is example for implement global Hooks
   .onBeforeHandle(({ headers, set }) => {
-    const { authorization } = headers;
     // example use for validation / checking headers, token, etc
     console.log("Global before hooks");
 
