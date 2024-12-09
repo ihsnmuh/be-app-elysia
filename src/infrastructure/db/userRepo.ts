@@ -1,4 +1,4 @@
-import type { PrismaClient, User } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client";
 import type { IUser, TCreateUser, TUpdateUser } from "../entity/interface";
 
 export class UserRepository implements IUser {
