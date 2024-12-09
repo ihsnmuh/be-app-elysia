@@ -3,6 +3,9 @@ import type { Note, Session, User } from "@prisma/client";
 export type TCreateUser = Omit<User, "id">;
 export type TUpdateUser = Partial<User>;
 
+export type TCreateNote = Omit<Note, "id">;
+export type TUpdateNote = Partial<Note>;
+
 export interface IUser {
 	getAll: () => Promise<User[]>;
 	getOne: (id: string) => Promise<User | null>;
@@ -18,9 +21,9 @@ export interface ISession {
 }
 
 export interface INote {
-	getAll: () => Promise<Note[]>;
+	getAll: (userId: string) => Promise<Note[]>;
 	getOne: (id: string) => Promise<Note | null>;
-	create: (data: Omit<Note, "id">) => Promise<Note>;
-	update: (id: string, data: Partial<Note>) => Promise<Note>;
+	create: (data: TCreateNote) => Promise<Note>;
+	update: (id: string, data: TUpdateNote) => Promise<Note>;
 	delete: (id: string) => Promise<void>;
 }
