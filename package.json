@@ -11,7 +11,9 @@
   "dependencies": {
     "@elysiajs/swagger": "^1.1.6",
     "@prisma/client": "^6.0.1",
-    "elysia": "latest"
+    "elysia": "latest",
+    "inversify": "^6.1.6",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "bun-types": "latest",
