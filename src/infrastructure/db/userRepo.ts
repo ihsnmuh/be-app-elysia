@@ -1,7 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 import type { IUser, TCreateUser, TUpdateUser } from "../entity/interface";
 import "reflect-metadata";
-import { injectable, inject } from "inversify";
+import { injectable, inject, id } from "inversify";
 import { TYPES } from "../entity/type";
 
 @injectable()
@@ -17,10 +17,17 @@ export class UserRepository implements IUser {
 		return users;
 	}
 
-	async getOne(idUser: string) {
-		const user = await this.prisma.user.findUnique({
+	async getOne(userIdOrEmail: string) {
+		const user = await this.prisma.user.findFirst({
 			where: {
-				id: idUser,
+				OR: [
+					{
+						id: userIdOrEmail,
+					},
+					{
+						email: userIdOrEmail,
+					},
+				],
 			},
 		});
 
