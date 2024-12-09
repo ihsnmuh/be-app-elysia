@@ -5,7 +5,8 @@
     "format": "bunx biome format src/ --fix",
     "lint": "bunx biome lint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@elysiajs/swagger": "^1.1.6",
