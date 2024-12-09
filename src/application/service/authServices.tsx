@@ -10,21 +10,24 @@ export class AuthServices {
 		this.sessionRepo = sessionRepo;
 	}
 
-    async registerUser(name: string, email: string, password: string) {
-        // check collision => email/user available
-        const user = await this.userRepo.getOne(email)
+	async registerUser(name: string, email: string, password: string) {
+		// check collision => email/user available
+		const user = await this.userRepo.getOne(email);
 
-        // User Available
-        if (user) {
-            throw new Error("User Already Register")
-        }
+		// User Available
+		if (user) {
+			throw new Error("User Already Register");
+		}
 
-        // Create New User
-        const hashedPassword = await Bun.password.hash(password)
-        const newUser = await this.userRepo.create({
-            name, email, password: hashedPassword, avatar: ""
-        })
+		// Create New User
+		const hashedPassword = await Bun.password.hash(password);
+		const newUser = await this.userRepo.create({
+			name,
+			email,
+			password: hashedPassword,
+			avatar: "",
+		});
 
-        return newUser
-    }
+		return newUser;
+	}
 }
