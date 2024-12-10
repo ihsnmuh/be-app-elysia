@@ -1,27 +1,27 @@
 ### Get All Notes
 GET http://localhost:3001/api/v1/notes
-Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+Authorization: Bearer 5228de23-d902-4082-8353-8dc19cf034f2
 
 
 ### Get Notes by id
 GET http://localhost:3001/api/v1/notes/b20865d8-00a2-44ad-8632-1b650b8709b9
-Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+Authorization: Bearer 5228de23-d902-4082-8353-8dc19cf034f2
 
 
 ### Create Note
 POST http://localhost:3001/api/v1/notes
 Content-Type: application/json
-Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+Authorization: Bearer 5228de23-d902-4082-8353-8dc19cf034f2
 
 {
-    "title": "Note title 1",
+    "title": "Note title 2",
     "content": "this is note content"
 }
 
 ### Update Note
 PATCH http://localhost:3001/api/v1/notes/b20865d8-00a2-44ad-8632-1b650b8709b9
 Content-Type: application/json
-Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+Authorization: Bearer 5228de23-d902-4082-8353-8dc19cf034f2
 
 {
     "content": "this is note content update"
