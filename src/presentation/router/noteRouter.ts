@@ -6,9 +6,7 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 		const sessionId = headers.authorization?.split(" ")[1]; //* Bearer authorization
 
 		if (!sessionId) {
-			return {
-				user: null,
-			};
+			throw new Error("Error!");
 		}
 
 		const user = await authServices.decodeSession(sessionId);
