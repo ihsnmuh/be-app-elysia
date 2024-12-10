@@ -1,10 +1,14 @@
 import type { NoteRepository } from "../../infrastructure/db/noteRepo";
 import type { TCreateNote } from "../../infrastructure/entity/interface";
+import "reflect-metadata";
+import { injectable, inject } from "inversify";
+import { TYPES } from "../../infrastructure/entity/type";
 
+@injectable()
 export class NoteServices {
 	private noteRepo: NoteRepository;
 
-	constructor(noteRepo: NoteRepository) {
+	constructor(@inject(TYPES.noteRepo) noteRepo: NoteRepository) {
 		this.noteRepo = noteRepo;
 	}
 

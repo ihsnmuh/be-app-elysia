@@ -1,11 +1,18 @@
 import type { SessionRepository } from "../../infrastructure/db/sessionRepo";
 import type { UserRepository } from "../../infrastructure/db/userRepo";
+import "reflect-metadata";
+import { injectable, inject } from "inversify";
+import { TYPES } from "../../infrastructure/entity/type";
 
+@injectable()
 export class AuthServices {
 	private userRepo: UserRepository;
 	private sessionRepo: SessionRepository;
 
-	constructor(userRepo: UserRepository, sessionRepo: SessionRepository) {
+	constructor(
+		@inject(TYPES.userRepo) userRepo: UserRepository,
+		@inject(TYPES.sessionRepo) sessionRepo: SessionRepository,
+	) {
 		this.userRepo = userRepo;
 		this.sessionRepo = sessionRepo;
 	}
