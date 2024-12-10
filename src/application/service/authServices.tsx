@@ -30,4 +30,23 @@ export class AuthServices {
 
 		return newUser;
 	}
+
+	async loginUser(email: string, password: string) {
+		// check User
+		const user = await this.userRepo.getOne(email);
+		if (!user) {
+			throw new Error("User not Found");
+		}
+
+		// mathing password
+		const matchPassword = await Bun.password.verify(password, user.password);
+		if (!matchPassword) {
+			throw new Error("Invalid Credential");
+		}
+
+		// Create Session
+		const createSession = await this.sessionRepo.create(user.id);
+
+		return createSession;
+	}
 }
