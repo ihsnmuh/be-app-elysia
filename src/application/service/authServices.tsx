@@ -49,4 +49,26 @@ export class AuthServices {
 
 		return createSession;
 	}
+
+	async checkSession(userId: string) {
+		const session = await this.sessionRepo.getOne(userId);
+
+		if (!session) {
+			throw new Error("Session Invalid");
+		}
+
+		return "valid";
+	}
+
+	async decodeSession(userId: string) {
+		const session = await this.sessionRepo.getOne(userId);
+
+		if (!session) {
+			throw new Error("Session Invalid");
+		}
+
+		const user = await this.userRepo.getOne(userId);
+
+		return { user };
+	}
 }
