@@ -18,10 +18,43 @@ export const noteRouter = new Elysia({ prefix: "/v1/notes" })
 	})
 
 	//* Get all Notes
-	.get("/", async ({ user }) => {
-		const notes = await noteServices.getAll(user.id);
-		return notes;
-	})
+	.get(
+		"/",
+		async ({ user }) => {
+			const notes = await noteServices.getAll(user.id);
+			return notes;
+		},
+		{
+			//* Example for Swagger
+			detail: {
+				description: "For get all data todos",
+				// Set Tag For swagger doc
+				// tags: ["notes"],
+				// set schema response for swagger doc
+				responses: {
+					200: {
+						description: "Get all data todos",
+						content: {
+							"application/json": {
+								schema: {
+									type: "array",
+									items: {
+										type: "object",
+										properties: {
+											id: { type: "string" },
+											title: { type: "string" },
+											content: { type: "number" },
+											authorId: { type: "string" },
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	)
 
 	//* Get Note by id
 	.get("/:id", async ({ params }) => {

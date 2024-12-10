@@ -5,28 +5,12 @@ import swagger from "@elysiajs/swagger";
 // import { notesRoutes } from "./routes/notes.route";
 import { authRouter } from "./presentation/router/authRouter";
 import { noteRouter } from "./presentation/router/noteRouter";
+import cors from "@elysiajs/cors";
 
 //* Chaining method only
-const app = new Elysia({ prefix: "/api" })
+const app = new Elysia()
 
-	// This is example for implement global Hooks
-	.onBeforeHandle(({ headers, set }) => {
-		// example use for validation / checking headers, token, etc
-		// console.log("Global before hooks");
-		// if (authorization !== "MyToken") {
-		//   set.status = 401;
-		//   return {
-		//     message: "You dont have access",
-		//   };
-		// }
-		// return {
-		//   message: "stop at hook before handle",
-		// };
-	})
-
-	.onAfterHandle(() => {
-		// console.log("Global After handle hooks");
-	})
+	.use(cors())
 
 	// swagger plugin handler
 	.use(
@@ -43,14 +27,13 @@ const app = new Elysia({ prefix: "/api" })
 		}),
 	)
 
-	//* Routes
-	.use(authRouter)
-	.use(noteRouter)
-
-	//! Route Test soon delete
-	// .use(todosRoutes)
-	// .use(usersRoutes)
-	// .use(notesRoutes)
+	// Group /api
+	.group("/api", (app) =>
+		app
+			//* Routes
+			.use(authRouter)
+			.use(noteRouter),
+	)
 
 	//* This is Runner
 	.listen(process.env.PORT as string);
