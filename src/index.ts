@@ -4,6 +4,7 @@ import { Elysia } from "elysia";
 import swagger from "@elysiajs/swagger";
 // import { notesRoutes } from "./routes/notes.route";
 import { authRouter } from "./presentation/router/authRouter";
+import { noteRouter } from "./presentation/router/noteRouter";
 
 //* Chaining method only
 const app = new Elysia({ prefix: "/api" })
@@ -42,8 +43,9 @@ const app = new Elysia({ prefix: "/api" })
 		}),
 	)
 
-	//* Routes Todos
+	//* Routes
 	.use(authRouter)
+	.use(noteRouter)
 
 	//! Route Test soon delete
 	// .use(todosRoutes)

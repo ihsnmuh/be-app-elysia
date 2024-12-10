@@ -1,0 +1,35 @@
+### Get All Notes
+GET http://localhost:3001/api/v1/notes
+Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+
+
+### Get Notes by id
+GET http://localhost:3001/api/v1/notes/b20865d8-00a2-44ad-8632-1b650b8709b9
+Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+
+
+### Create Note
+POST http://localhost:3001/api/v1/notes
+Content-Type: application/json
+Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+
+{
+    "title": "Note title 1",
+    "content": "this is note content"
+}
+
+### Update Note
+PATCH http://localhost:3001/api/v1/notes/b20865d8-00a2-44ad-8632-1b650b8709b9
+Content-Type: application/json
+Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+
+{
+    "content": "this is note content update"
+}
+
+### Delete Note
+DELETE http://localhost:3001/api/v1/notes/fab7f8b3-e192-4eba-ac4f-6f36589cbd98
+Content-Type: application/json
+Authorization: Bearer 59ad25c9-2ee1-459f-b2e3-75cd4315933f
+
+
