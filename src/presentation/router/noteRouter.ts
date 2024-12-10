@@ -1,7 +1,25 @@
 import Elysia, { t } from "elysia";
 import { authServices, noteServices } from "../../application/instance";
+import { AuthorizationError } from "../../infrastructure/entity/error";
 
 export const noteRouter = new Elysia({ prefix: "/v1/note" })
+
+	//* Handling error
+	.onBeforeHandle(async ({ headers }) => {
+		const sessionId = headers.authorization?.split(" ")[1];
+
+		if (!sessionId) {
+			throw new AuthorizationError("SessionId not provide");
+		}
+
+		const session = await authServices.checkSession(sessionId);
+
+		if (session !== "valid") {
+			throw new AuthorizationError("Session is invalid");
+		}
+	})
+
+	//* get session Id and sent to all routes
 	.derive(async ({ headers }) => {
 		const sessionId = headers.authorization?.split(" ")[1]; //* Bearer authorization
 
@@ -13,12 +31,14 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 
 		return user;
 	})
+
 	//* Get all Notes
 	.get("/", async ({ user }) => {
 		const notes = await noteServices.getAll(user.id);
 		return notes;
 	})
 
+	//* Get Note by id
 	.get("/:id", async ({ params }) => {
 		const note = await noteServices.getOne(params.id);
 		return note;
@@ -45,7 +65,7 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 		},
 	)
 
-	//* update Note
+	//* update note
 	.patch(
 		"/:id",
 		async ({ body, params }) => {
@@ -66,7 +86,7 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 		},
 	)
 
-	// * Delete
+	// * Delete note
 	.delete("/:id", async ({ params }) => {
 		await noteServices.delete(params.id);
 	});
