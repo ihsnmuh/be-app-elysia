@@ -1,5 +1,8 @@
 import type { NoteRepository } from "../../infrastructure/db/noteRepo";
-import type { TCreateNote } from "../../infrastructure/entity/interface";
+import type {
+	TCreateNote,
+	TUpdateNote,
+} from "../../infrastructure/entity/interface";
 import "reflect-metadata";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../../infrastructure/entity/type";
@@ -30,7 +33,7 @@ export class NoteServices {
 		return newNote;
 	}
 
-	async update(noteId: string, data: TCreateNote) {
+	async update(noteId: string, data: TUpdateNote) {
 		const updateNote = await this.noteRepo.update(noteId, data);
 
 		return updateNote;
