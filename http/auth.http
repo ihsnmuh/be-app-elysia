@@ -16,3 +16,11 @@ Content-Type: application/json
     "email": "ihsan@mail.com",
     "password": "qwerty123"
 }
+
+### Check Session
+POST http://localhost:3001/api/v1/session
+Content-Type: application/json
+
+{
+    "sessionId": "23e0c7c6-c077-4e68-b00d-404b8ccd1778"
+}
