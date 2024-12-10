@@ -15,7 +15,7 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 	})
 	//* Get all Notes
 	.get("/", async ({ user }) => {
-		const notes = await noteServices.getAll(user?.id as string);
+		const notes = await noteServices.getAll(user.id);
 		return notes;
 	})
 
@@ -33,7 +33,7 @@ export const noteRouter = new Elysia({ prefix: "/v1/note" })
 			const createNote = await noteServices.create({
 				title,
 				content,
-				authorId: user?.id as string,
+				authorId: user.id,
 			});
 			return createNote;
 		},
