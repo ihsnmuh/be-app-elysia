@@ -1,11 +1,12 @@
 import { Elysia } from "elysia";
-import { todosRoutes } from "./routes/todos.route";
-import { usersRoutes } from "./routes/users.route";
+// import { todosRoutes } from "./routes/todos.route";
+// import { usersRoutes } from "./routes/users.route";
 import swagger from "@elysiajs/swagger";
-import { notesRoutes } from "./routes/notes.route";
+// import { notesRoutes } from "./routes/notes.route";
+import { authRouter } from "./presentation/router/authRouter";
 
 //* Chaining method only
-const app = new Elysia()
+const app = new Elysia({ prefix: "/api" })
 
 	// This is example for implement global Hooks
 	.onBeforeHandle(({ headers, set }) => {
@@ -42,9 +43,12 @@ const app = new Elysia()
 	)
 
 	//* Routes Todos
-	.use(todosRoutes)
-	.use(usersRoutes)
-	.use(notesRoutes)
+	.use(authRouter)
+
+	//! Route Test soon delete
+	// .use(todosRoutes)
+	// .use(usersRoutes)
+	// .use(notesRoutes)
 
 	//* This is Runner
 	.listen(process.env.PORT as string);

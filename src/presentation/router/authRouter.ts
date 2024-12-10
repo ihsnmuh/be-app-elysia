@@ -1,7 +1,7 @@
 import Elysia, { t } from "elysia";
 import { authServices } from "../../application/instance";
 
-export const authRouter = new Elysia()
+export const authRouter = new Elysia({ prefix: "/v1" })
 	// routes
 
 	//* Register
