@@ -1,8 +1,9 @@
-import type { PrismaClient, Session } from "@prisma/client";
+import { Prisma, type PrismaClient, type Session } from "@prisma/client";
 import type { ISession } from "../entity/interface";
 import "reflect-metadata";
 import { TYPES } from "../entity/type";
 import { inject, injectable } from "inversify";
+import { DBError } from "../entity/error";
 
 @injectable()
 export class SessionRepository implements ISession {
@@ -13,34 +14,62 @@ export class SessionRepository implements ISession {
 	}
 
 	async getOne(sessionId: string) {
-		const session = await this.prisma.session.findUnique({
-			where: {
-				id: sessionId,
-			},
-		});
+		try {
+			const session = await this.prisma.session.findUnique({
+				where: {
+					id: sessionId,
+				},
+			});
 
-		return session;
+			if (!session) {
+				throw new DBError("Something went wrong while doing DB operation");
+			}
+
+			return session;
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				throw new DBError("Error getting resource from DB");
+			}
+
+			throw new DBError("Something went wrong while doing DB operation");
+		}
 	}
 
 	async create(userId: string) {
-		const createSession = await this.prisma.session.create({
-			data: {
-				user: {
-					connect: {
-						id: userId,
+		try {
+			const createSession = await this.prisma.session.create({
+				data: {
+					user: {
+						connect: {
+							id: userId,
+						},
 					},
 				},
-			},
-		});
+			});
 
-		return createSession;
+			return createSession;
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				throw new DBError("Error getting resource from DB");
+			}
+
+			throw new DBError("Something went wrong while doing DB operation");
+		}
 	}
 
 	async delete(sessionId: string) {
-		await this.prisma.session.delete({
-			where: {
-				id: sessionId,
-			},
-		});
+		try {
+			await this.prisma.session.delete({
+				where: {
+					id: sessionId,
+				},
+			});
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				throw new DBError("Error getting resource from DB");
+			}
+
+			throw new DBError("Something went wrong while doing DB operation");
+		}
 	}
 }
