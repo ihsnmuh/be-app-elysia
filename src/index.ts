@@ -1,16 +1,17 @@
 import { Elysia } from "elysia";
-// import { todosRoutes } from "./routes/todos.route";
-// import { usersRoutes } from "./routes/users.route";
 import swagger from "@elysiajs/swagger";
-// import { notesRoutes } from "./routes/notes.route";
 import { authRouter } from "./presentation/router/authRouter";
 import { noteRouter } from "./presentation/router/noteRouter";
+import { uploadRouter } from "./presentation/router/uploadRouter";
 import cors from "@elysiajs/cors";
+import staticPlugin from "@elysiajs/static";
 
 //* Chaining method only
 const app = new Elysia()
 
 	.use(cors())
+	// Serve the "public" directory as static files
+	.use(staticPlugin({ prefix: "/static" }))
 
 	// swagger plugin handler
 	.use(
@@ -31,6 +32,7 @@ const app = new Elysia()
 	.group("/api", (app) =>
 		app
 			//* Routes
+			.use(uploadRouter)
 			.use(authRouter)
 			.use(noteRouter),
 	)

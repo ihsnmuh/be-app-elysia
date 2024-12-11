@@ -30,3 +30,14 @@ export class NotFoundError extends Error {
 		this.code = "NOTFOUND_ERROR";
 	}
 }
+
+export class UploadError extends Error {
+	public status: number;
+	public code: "UPLOAD_ERROR";
+
+	constructor(message: string) {
+		super(message);
+		this.status = 409;
+		this.code = "UPLOAD_ERROR";
+	}
+}
