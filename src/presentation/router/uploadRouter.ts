@@ -8,7 +8,7 @@ export const uploadRouter = new Elysia({ prefix: "/v1" })
 		async ({ body, set }) => {
 			try {
 				const { image, location } = body;
-				const imageName = image.name;
+				const imageName = image.name.toLowerCase();
 				const imageSize = image.size;
 				const imageType = image.type;
 
@@ -27,13 +27,13 @@ export const uploadRouter = new Elysia({ prefix: "/v1" })
 					throw new UploadError("Size exceeds 500KB");
 				}
 
-				const uploadPath = `./public/images/${location}/${imageName.toLowerCase()}`;
+				const uploadPath = `./public/images/${location}/${imageName}`;
 
 				// Save the file
 				await Bun.write(uploadPath, image);
 
 				return {
-					imageLink: `/public/images/${location}/${imageName.toLowerCase()}`,
+					imageLink: `/public/images/${location}/${imageName}`,
 				};
 			} catch (error) {
 				set.status = 500;
