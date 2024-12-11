@@ -1,0 +1,26 @@
+### Register
+POST http://localhost:3001/api/v1/register
+Content-Type: application/json
+
+{
+    "name": "ihsan",
+    "email": "ihsan2@mail.com",
+    "password": "qwerty123"
+}
+
+### Login
+POST http://localhost:3001/api/v1/login
+Content-Type: application/json
+
+{
+    "email": "ihsan2@mail.com",
+    "password": "qwerty123"
+}
+
+### Check Session
+POST http://localhost:3001/api/v1/session
+Content-Type: application/json
+
+{
+    "sessionId": "23e0c7c6-c077-4e68-b00d-404b8ccd1778"
+}

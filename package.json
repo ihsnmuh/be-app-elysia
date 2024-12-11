@@ -2,14 +2,24 @@
   "name": "be-app-elysia",
   "version": "1.0.50",
   "scripts": {
+    "format": "bunx biome format src/ --fix",
+    "lint": "bunx biome lint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "prepare": "husky"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/cors": "^1.1.1",
+    "@elysiajs/static": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.6",
+    "@prisma/client": "^6.0.1",
+    "elysia": "latest",
+    "inversify": "^6.1.6",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "husky": "^9.1.7"
   },
   "module": "src/index.js"
 }
