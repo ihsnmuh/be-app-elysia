@@ -10,8 +10,6 @@ import staticPlugin from "@elysiajs/static";
 const app = new Elysia()
 
 	.use(cors())
-	// Serve the "public" directory as static files
-	.use(staticPlugin({ prefix: "/static" }))
 
 	// swagger plugin handler
 	.use(
@@ -36,6 +34,9 @@ const app = new Elysia()
 			.use(authRouter)
 			.use(noteRouter),
 	)
+
+	// Serve the "public" directory as static files
+	.use(staticPlugin())
 
 	//* This is Runner
 	.listen(process.env.PORT as string);

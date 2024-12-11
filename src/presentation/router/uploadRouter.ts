@@ -33,7 +33,7 @@ export const uploadRouter = new Elysia({ prefix: "/v1" })
 				await Bun.write(uploadPath, image);
 
 				return {
-					imageLink: `/static/images/${location}/${imageName.toLowerCase()}`,
+					imageLink: `/public/images/${location}/${imageName.toLowerCase()}`,
 				};
 			} catch (error) {
 				set.status = 500;
